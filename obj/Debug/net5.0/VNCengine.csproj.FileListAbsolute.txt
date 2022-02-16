@@ -1,0 +1,16 @@
+C:\Users\Алая Дьяволица\Documents\VNCengine\bin\Debug\net5.0\VNCengine.exe
+C:\Users\Алая Дьяволица\Documents\VNCengine\bin\Debug\net5.0\VNCengine.deps.json
+C:\Users\Алая Дьяволица\Documents\VNCengine\bin\Debug\net5.0\VNCengine.runtimeconfig.json
+C:\Users\Алая Дьяволица\Documents\VNCengine\bin\Debug\net5.0\VNCengine.runtimeconfig.dev.json
+C:\Users\Алая Дьяволица\Documents\VNCengine\bin\Debug\net5.0\VNCengine.dll
+C:\Users\Алая Дьяволица\Documents\VNCengine\bin\Debug\net5.0\ref\VNCengine.dll
+C:\Users\Алая Дьяволица\Documents\VNCengine\bin\Debug\net5.0\VNCengine.pdb
+C:\Users\Алая Дьяволица\Documents\VNCengine\obj\Debug\net5.0\VNCengine.csproj.AssemblyReference.cache
+C:\Users\Алая Дьяволица\Documents\VNCengine\obj\Debug\net5.0\VNCengine.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Алая Дьяволица\Documents\VNCengine\obj\Debug\net5.0\VNCengine.AssemblyInfoInputs.cache
+C:\Users\Алая Дьяволица\Documents\VNCengine\obj\Debug\net5.0\VNCengine.AssemblyInfo.cs
+C:\Users\Алая Дьяволица\Documents\VNCengine\obj\Debug\net5.0\VNCengine.csproj.CoreCompileInputs.cache
+C:\Users\Алая Дьяволица\Documents\VNCengine\obj\Debug\net5.0\VNCengine.dll
+C:\Users\Алая Дьяволица\Documents\VNCengine\obj\Debug\net5.0\ref\VNCengine.dll
+C:\Users\Алая Дьяволица\Documents\VNCengine\obj\Debug\net5.0\VNCengine.pdb
+C:\Users\Алая Дьяволица\Documents\VNCengine\obj\Debug\net5.0\VNCengine.genruntimeconfig.cache

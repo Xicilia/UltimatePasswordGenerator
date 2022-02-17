@@ -1,6 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
-
+using System.Collections.Generic;
 namespace UPG {
     class GeneratorInfo {
         public Tuple<int,int> Length {
@@ -12,11 +12,17 @@ namespace UPG {
 
         public Set SymbolSet {get;set;}
         public GeneratorInfo() {
-            Console.Write("Enter password length (int for static or int-int for random in range): ");
-            
+            Console.Write("Enter password length (enter an empty string if you want to use mask length): ");
             bool IsCorrect = false;
             while (!IsCorrect) {
                 string Input = Console.ReadLine();
+
+                if(Input.Length == 0) {
+                    Length = new Tuple<int, int>(-1,-1);
+                    Console.WriteLine("\nGenerator will use mask length");
+                    break;
+                } 
+
                 try {
                     Length = Program.ValidateLength(Input);
 
@@ -44,6 +50,51 @@ namespace UPG {
             IsCorrect = false;
             string SymbolsRaw = "";
             if(Presets) {
+                try {
+                    List<Preset> PresetsList = Preset.ParsePresetsFromFile();
+                    foreach(Preset CurrentPreset in PresetsList) {
+                        Console.WriteLine($"{PresetsList.IndexOf(CurrentPreset) + 1}. {CurrentPreset.GetCaption()}");
+                    }
+                    Console.WriteLine();
+                    while (!IsCorrect) {
+                        Console.WriteLine("Enter string contains number of presets you want to use");
+                        string  PresetString = Console.ReadLine();
+                        bool IsPresetCorrect = true;
+                        foreach(char CurrentPreset in PresetString) {
+                            try {
+                                int PresetNumber = int.Parse(CurrentPreset.ToString());
+                                if(PresetNumber <= 0 || PresetNumber > PresetsList.Count) {
+                                    Console.WriteLine($"Numbers can only be between 1 and {PresetsList.Count}");
+                                    IsPresetCorrect = false;
+                                    break;
+                                }
+                                SymbolsRaw += PresetsList[PresetNumber - 1].GetSymbols();
+                                //Console.WriteLine(PresetNumber);
+                            } catch {
+                                Console.WriteLine($"Invalid syntax: {CurrentPreset}");
+                                IsPresetCorrect = false;
+                                break;
+                            }
+                        }
+                        IsCorrect = IsPresetCorrect;
+                    }
+                } catch(InvalidPresetSyntaxException) {
+                    Console.WriteLine("Finded problems in Presets.txt, create your own symbol set");
+                    Presets = false;
+                }
+            }
+            if(!Presets) {
+                Console.WriteLine("Enter string with any symbols you want to use");
+                while (!IsCorrect) {
+                    SymbolsRaw = Console.ReadLine();
+                    if(SymbolsRaw.Length == 0) {
+                        Console.WriteLine("Cant be null");
+                        continue;
+                    }
+                    IsCorrect = true;
+                }
+            }
+            /*if(Presets) {
                 Console.WriteLine("\nEnter string contains only number of presets you want to use\n1.Letters\n2.Numbers\n3.Special symbols\nEnter empty string if you want to use all of them");
                 string Input = Console.ReadLine();
                 
@@ -70,7 +121,7 @@ namespace UPG {
                     }
                     IsCorrect = true;
                 }
-            }
+            }*/
             Console.WriteLine($"Using set is {SymbolsRaw}");
             SymbolSet = new Set(SymbolsRaw);
             //Console.ReadLine();
@@ -133,7 +184,14 @@ namespace UPG {
             string Password = "";
             Random randomizer = new Random();
             //int Length = randomizer.Next(Info.Length.Item1,Info.Length.Item2);
-            int Length = Program.GetRandomFromTuple(Info.Length);
+            int Length;
+
+            if (Info.Length.Item1 == -1) {
+                Length = Info.GeneratorMask.GetMaskActual().Length;
+            } else {
+                Length = Program.GetRandomFromTuple(Info.Length);
+            }
+
             Mask CurrentMask = Mask.NormalizeMask(Info.GeneratorMask,Length);
 
             int PlainTextIndex = 0;

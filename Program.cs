@@ -33,14 +33,15 @@ namespace UPG
 
             Console.WriteLine($"Using mask is: {generator.Info.GeneratorMask.GetMaskActual()}");
 
-            if(MaskSize != generator.Info.Length.Item1 && MaskSize != generator.Info.Length.Item1) {
+            if(MaskSize != generator.Info.Length.Item1 && MaskSize != generator.Info.Length.Item1 && generator.Info.Length.Item1 != -1) {
                 Console.WriteLine("your mask length always or sometimes is not equal to password length so it will be reduced or supplemented to it");
             }
 
             Console.WriteLine("\nGenerated Passwords:");
-            for(int i = 0; i < 10; i++) {
+            for(int i = 0; i < 25; i++) {
                 Console.WriteLine(generator.GeneratePassword());
             }
+            Console.ReadKey();
             
 
         }

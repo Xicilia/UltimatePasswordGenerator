@@ -1,11 +1,53 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace UPG {
 
+    class Preset {
+        private string Caption;
+        private string Symbols;
+        public Preset(string Caption, string Symbols) {
+            this.Caption = Caption;
+            this.Symbols = Symbols;
+        }
+        public string GetCaption() {
+            return Caption;
+        }
+        public string GetSymbols() {
+            return Symbols;
+        }
+        public static Preset GetPresetFromString(string Preset) {
+            string[] PresetElements = Preset.Split(",");
+            
+            if(PresetElements.Length != 2) {
+                Console.WriteLine($"Invalid Preset Syntax: {Preset}");
+                throw new InvalidPresetSyntaxException();
+            }
+            //Preset NewPreset = new Preset(PresetElements[0].Trim(), PresetElements[1].Trim());
+            return new Preset(PresetElements[0].Trim(), PresetElements[1].Trim());
+        }
+        public static List<Preset> ParsePresetsFromFile(string Filename = "Presets.txt") {
+            string[] PresetsRaw = File.ReadAllLines(Filename);
+            List<Preset> Presets = new List<Preset>();
+            foreach(string PresetRaw in PresetsRaw) {
+                try {
+                    Presets.Add(Preset.GetPresetFromString(PresetRaw));
+                } catch(InvalidPresetSyntaxException) {
+                    throw new InvalidPresetSyntaxException();
+                }
+            }
+            return Presets;
+        }
+    }
+
     static class SymbolPresets {
-        public static string Letters = "abcdefghijklmnopqrstuvwxyz" + "abcdefghijklmnopqrstuvwxyz".ToUpper();
+        public static string EngLettersLower = "abcdefghijklmnopqrstuvwxyz";
+        public static string EngLettersCapital = "abcdefghijklmnopqrstuvwxyz".ToUpper();
+
+        public static string RusLettersLower = "éöóêåíãøùçõúôûâàïðîëäæýÿ÷ñìèòüáþ";
+        public static string RusLettersCapital = RusLettersLower.ToUpper();
         //public static string CapitalLetters = LowerLetters.ToUpper();
         public static string Numbers = "0123456789";
         public static string OtherSymbols = "!@#$%%^&*()_+|\\/{}><?";
@@ -90,7 +132,7 @@ namespace UPG {
         }
 
         private void InitChars(string Symbols) {
-            Regex Pattern = new Regex(@"[a-zA-Z]");
+            Regex Pattern = new Regex(@"[a-zA-Z]|[à-ÿÀ-ß]");
             MatchCollection Matches = Pattern.Matches(Symbols);
 
             if(Matches.Count > 0) {

@@ -8,4 +8,8 @@ namespace UPG {
     class IncorrectLengthException : Exception {
         public IncorrectLengthException() : base() {}
     }
+
+    class InvalidPresetSyntaxException : Exception {
+        public InvalidPresetSyntaxException() : base() {}
+    }
 }

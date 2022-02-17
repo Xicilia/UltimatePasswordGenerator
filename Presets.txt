@@ -1,0 +1,6 @@
+EngLower , abcdefghijklmnopqrstuvwxyz
+EngCapital, QWERTYUIOPASDFGHJKLZXCVBNM
+Numbers, 0123456789
+Other, !@#$%%^&*()_+|\/{}><?
+RusLower ,йцукенгшщзхъфывапролджэячсмитьбю
+RusCapital , ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ
